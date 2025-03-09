@@ -1,11 +1,12 @@
 {
   "name": "6digit-mcp",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "node src/index.js",
+    "start": "node build/index.js",
+    "dev": "ts-node-esm src/index.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

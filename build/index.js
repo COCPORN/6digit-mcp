@@ -1,7 +1,8 @@
 // Import from the MCP SDK
 // This creates a simple MCP server with an echo tool that returns whatever message it receives
-import { McpServer } from '@modelcontextprotocol/sdk/dist/esm/server/mcp.js';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/dist/esm/server/stdio.js';
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { z } from 'zod';
 // Create and start the MCP server
 async function startServer() {
     // Create the MCP server with basic server info
@@ -10,13 +11,13 @@ async function startServer() {
         version: '1.0.0'
     });
     // Register an echo tool that will respond with the input message
-    server.tool('echo', 'Echoes back the input message', { message: 'string' }, (params) => {
-        console.log('Echo tool called with params:', params);
+    server.tool('echo', 'Echoes back the input message', { message: z.string().describe('The message to echo back') }, (args, _extra) => {
+        console.log('Echo tool called with params:', args);
         return {
             content: [
                 {
                     type: 'text',
-                    text: `Echo: ${params.message}`
+                    text: `Echo: ${args.message}`
                 }
             ]
         };
