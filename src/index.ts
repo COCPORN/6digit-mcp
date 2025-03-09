@@ -5,7 +5,7 @@ import {
 import { z } from "zod";
 
 const server = new McpServer({
-  name: "Echo",
+  name: "6digit echo",
   version: "1.0.0",
 });
 
