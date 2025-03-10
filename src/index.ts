@@ -48,7 +48,7 @@ async function readCallback(uri: URL): Promise<ReadResourceResult> {
   console.error("Read callback called with request:", uri);
   const node_context = await convexClient.query(api.mcps.get_node_context, {
     api_key: API_KEY as Id<"api_keys">,
-    node_id: "jd7f2zewg8prpdp7g96xt9rbts76nkm9",
+    node_id: uri.toString().replace('node:///', '') as Id<'nodes'>,
   });
   console.error("NODE CONTEXT:", node_context);
   return {
