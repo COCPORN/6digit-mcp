@@ -12,6 +12,18 @@ export type PublicApiType = {
       { api_key: string },
       any
     >;
+    list_nodes_as_resources: FunctionReference<
+      "query",
+      "public",
+      { api_key: string; brain_ids: Array<Id<"brains">> },
+      any
+    >;
+    get_node_context: FunctionReference<
+      "query",
+      "public",
+      { api_key: string; node_id: string },
+      any
+    >;
   };
 };
 export type InternalApiType = {};
