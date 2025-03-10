@@ -47,22 +47,22 @@ async function startServer() {
   }
 
   // Register an echo tool that will respond with the input message
-  // server.tool(
-  //   "echo",
-  //   "Echoes back the input message",
-  //   { message: z.string().describe("The message to echo back") },
-  //   (args, _extra) => {
-  //     console.error("Echo tool called with params:", args);
-  //     return {
-  //       content: [
-  //         {
-  //           type: "text",
-  //           text: `Echo: ${args.message}`,
-  //         },
-  //       ],
-  //     };
-  //   },
-  // );
+  server.tool(
+    "echo",
+    "Echoes back the input message",
+    { message: z.string().describe("The message to echo back") },
+    (args, _extra) => {
+      console.error("Echo tool called with params:", args);
+      return {
+        content: [
+          {
+            type: "text",
+            text: `Echo: ${args.message}`,
+          },
+        ],
+      };
+    },
+  );
 
   // Create a stdio transport (communicates via stdin/stdout)
   const transport = new StdioServerTransport();

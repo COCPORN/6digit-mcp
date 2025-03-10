@@ -3,6 +3,7 @@
 // This creates a simple MCP server with an echo tool that returns whatever message it receives
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
 import { ConvexClient } from "convex/browser";
 import { api } from "./api.js";
 const CONVEX_URL = process.env.CONVEX_URL || "https://clever-starling-109.convex.cloud";
@@ -34,22 +35,17 @@ async function startServer() {
         process.exit(1);
     }
     // Register an echo tool that will respond with the input message
-    // server.tool(
-    //   "echo",
-    //   "Echoes back the input message",
-    //   { message: z.string().describe("The message to echo back") },
-    //   (args, _extra) => {
-    //     console.error("Echo tool called with params:", args);
-    //     return {
-    //       content: [
-    //         {
-    //           type: "text",
-    //           text: `Echo: ${args.message}`,
-    //         },
-    //       ],
-    //     };
-    //   },
-    // );
+    server.tool("echo", "Echoes back the input message", { message: z.string().describe("The message to echo back") }, (args, _extra) => {
+        console.error("Echo tool called with params:", args);
+        return {
+            content: [
+                {
+                    type: "text",
+                    text: `Echo: ${args.message}`,
+                },
+            ],
+        };
+    });
     // Create a stdio transport (communicates via stdin/stdout)
     const transport = new StdioServerTransport();
     // Connect the server to the transport
