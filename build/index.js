@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Import from the MCP SDK
 // This creates a simple MCP server with an echo tool that returns whatever message it receives
-import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { ConvexClient } from "convex/browser";
 import { api } from "./api.js";
@@ -56,16 +56,7 @@ async function startServer() {
     nodes.forEach(async (node) => {
         console.error(`Registering node ${node.name} with URI ${node.uri}`);
         server.resource(node.name, node.uri, readCallback);
-        //server.resource(node.name, node.uri, readCallback);
     });
-    server.resource("greeting", new ResourceTemplate("greeting://{name}", { list: undefined }), async (uri, { name }) => ({
-        contents: [
-            {
-                uri: uri.href,
-                text: `Hello, ${name}!`,
-            },
-        ],
-    }));
     // server.tool("add",
     //   { a: z.number(), b: z.number() },
     //   async ({ a, b }) => ({

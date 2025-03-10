@@ -81,22 +81,8 @@ async function startServer() {
   nodes.forEach(async (node: any) => {
     console.error(`Registering node ${node.name} with URI ${node.uri}`);
     server.resource(node.name, node.uri, readCallback);
-
-    //server.resource(node.name, node.uri, readCallback);
   });
-  server.resource(
-    "greeting",
-    new ResourceTemplate("greeting://{name}", { list: undefined }),
-    async (uri, { name }) => ({
-      contents: [
-        {
-          uri: uri.href,
-          text: `Hello, ${name}!`,
-        },
-      ],
-    }),
-  );
-
+  
   // server.tool("add",
   //   { a: z.number(), b: z.number() },
   //   async ({ a, b }) => ({
