@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Import from the MCP SDK
 // This creates a simple MCP server with an echo tool that returns whatever message it receives
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { ConvexClient } from "convex/browser";
 import { api } from "./api.js";
@@ -28,6 +28,7 @@ async function readCallback(uri) {
         api_key: API_KEY,
         node_id: "jd7f2zewg8prpdp7g96xt9rbts76nkm9",
     });
+    console.error("NODE CONTEXT:", node_context);
     return {
         contents: [
             {
@@ -57,6 +58,14 @@ async function startServer() {
         server.resource(node.name, node.uri, readCallback);
         //server.resource(node.name, node.uri, readCallback);
     });
+    server.resource("greeting", new ResourceTemplate("greeting://{name}", { list: undefined }), async (uri, { name }) => ({
+        contents: [
+            {
+                uri: uri.href,
+                text: `Hello, ${name}!`,
+            },
+        ],
+    }));
     // Register an echo tool that will respond with the input message
     // server.tool(
     //   "echo",
