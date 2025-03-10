@@ -10,13 +10,8 @@ console.error("Starting 6digit MCP server");
 const CONVEX_URL = process.env.CONVEX_URL || "https://clever-starling-109.convex.cloud";
 const convexClient = new ConvexClient(CONVEX_URL);
 const API_KEY = process.env.API_KEY;
-const CONFIGURATION = process.env.MCP_CONFIGURATION;
 if (!API_KEY) {
     console.error("API_KEY is not set");
-    process.exit(1);
-}
-if (!CONFIGURATION) {
-    console.error("CONFIGURATION is not set");
     process.exit(1);
 }
 const mcpConfiguration = await convexClient.query(api.mcps.get_configuration, {

@@ -17,14 +17,9 @@ const CONVEX_URL =
 const convexClient = new ConvexClient(CONVEX_URL);
 
 const API_KEY = process.env.API_KEY;
-const CONFIGURATION = process.env.MCP_CONFIGURATION;
+
 if (!API_KEY) {
   console.error("API_KEY is not set");
-  process.exit(1);
-}
-
-if (!CONFIGURATION) {
-  console.error("CONFIGURATION is not set");
   process.exit(1);
 }
 
