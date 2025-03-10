@@ -22,18 +22,17 @@ const nodes = await convexClient.query(api.mcps.list_nodes_as_resources, {
     brain_ids: mcpConfiguration.brains,
 });
 console.error("Starting MCP server: ", nodes);
-const node_context = await convexClient.query(api.mcps.get_node_context, {
-    api_key: API_KEY,
-    node_id: "jd7f2zewg8prpdp7g96xt9rbts76nkm9",
-});
-console.error("Starting MCP server: ", node_context);
 async function readCallback(uri) {
     console.error("Read callback called with request:", uri);
+    const node_context = await convexClient.query(api.mcps.get_node_context, {
+        api_key: API_KEY,
+        node_id: "jd7f2zewg8prpdp7g96xt9rbts76nkm9",
+    });
     return {
         contents: [
             {
                 type: "text/markdown",
-                text: `# Hello, world!`,
+                text: node_context,
                 uri: uri.toString(),
                 mimeType: "text/markdown",
                 contentType: "text/markdown",
