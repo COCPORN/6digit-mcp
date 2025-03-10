@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node build/index.js",
-    "dev": "ts-node --esm src/index.ts",
+    "dev": "NODE_OPTIONS=\"--loader ts-node/esm\" node src/index.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,6 +22,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.6.1"
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "convex": "^1.19.5"
   }
 }
