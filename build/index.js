@@ -3,6 +3,7 @@
 // This creates a simple MCP server with an echo tool that returns whatever message it receives
 import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
 import { ConvexClient } from "convex/browser";
 import { api } from "./api.js";
 console.error("Starting 6digit MCP server");
@@ -65,6 +66,9 @@ async function startServer() {
                 text: `Hello, ${name}!`,
             },
         ],
+    }));
+    server.tool("add", { a: z.number(), b: z.number() }, async ({ a, b }) => ({
+        content: [{ type: "text", text: String(a + b) }]
     }));
     // Register an echo tool that will respond with the input message
     // server.tool(
