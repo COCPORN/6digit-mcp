@@ -20,7 +20,7 @@ if (!CONFIGURATION) {
 const mcpConfiguration = await convexClient.query(api.mcps.get_configuration, {
     api_key: API_KEY,
 });
-console.log("Starting MCP server: ", mcpConfiguration);
+console.error("Starting MCP server: ", mcpConfiguration);
 // Create and start the MCP server
 async function startServer() {
     // Create the MCP server with basic server info
@@ -29,6 +29,10 @@ async function startServer() {
         version: mcpConfiguration.version,
         description: mcpConfiguration.description,
     });
+    if (!server) {
+        console.error("Failed to create MCP server");
+        process.exit(1);
+    }
     // Register an echo tool that will respond with the input message
     // server.tool(
     //   "echo",
