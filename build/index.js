@@ -6,6 +6,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { ConvexClient } from "convex/browser";
 import { api } from "./api.js";
+console.error("Starting 6digit MCP server");
 const CONVEX_URL = process.env.CONVEX_URL || "https://clever-starling-109.convex.cloud";
 const convexClient = new ConvexClient(CONVEX_URL);
 const API_KEY = process.env.API_KEY;

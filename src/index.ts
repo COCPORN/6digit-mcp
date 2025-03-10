@@ -9,6 +9,8 @@ import { ConvexClient } from "convex/browser";
 import { GenericId as Id } from "convex/values";
 import { api } from "./api.js";
 
+console.error("Starting 6digit MCP server");
+
 const CONVEX_URL =
   process.env.CONVEX_URL || "https://clever-starling-109.convex.cloud";
 
